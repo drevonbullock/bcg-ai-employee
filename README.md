@@ -76,6 +76,26 @@ ai-employee/
 
 ---
 
+## Embedding
+
+Add Aria to any website with a single script tag — no build step, no npm, no configuration required.
+
+```html
+<script src="https://bcg-ai-employee.vercel.app/embed.js" async></script>
+```
+
+Paste it anywhere in the `<body>` (or before `</body>`) of the target page. The script:
+
+- Injects a transparent `420×700px` iframe fixed to the bottom-right corner
+- Loads the full Aria widget from `bcg-ai-employee.vercel.app` inside the iframe
+- Re-enables pointer events only on the widget so the rest of the host page remains fully interactive
+- Adapts to mobile viewports (expands to full width on screens ≤ 480px)
+- Is idempotent — safe to include multiple times, will only inject once
+
+The widget is self-contained inside the iframe; it manages its own open/close state, lead capture, and Calendly CTA independently of the host page.
+
+---
+
 ## Conversation Flow
 1. **Greet** — Aria introduces herself (800ms delay on open)
 2. **Qualify** — Identify business type, pain point, timeline
