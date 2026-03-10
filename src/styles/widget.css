@@ -1,0 +1,352 @@
+/* widget.css — Aria chat widget styles (dark theme) */
+
+:root {
+  --aria-bg: #1a1a2e;
+  --aria-surface: #16213e;
+  --aria-border: #0f3460;
+  --aria-accent: #e94560;
+  --aria-accent-hover: #c73652;
+  --aria-text: #e0e0e0;
+  --aria-text-muted: #9a9ab0;
+  --aria-bubble-user: #e94560;
+  --aria-bubble-ai: #0f3460;
+  --aria-radius: 16px;
+  --aria-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Launcher button ─────────────────────────────────────── */
+.aria-launcher {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--aria-accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--aria-shadow);
+  transition: background 0.2s, transform 0.2s;
+  z-index: 9999;
+}
+
+.aria-launcher:hover {
+  background: var(--aria-accent-hover);
+  transform: scale(1.08);
+}
+
+/* ── Widget window ───────────────────────────────────────── */
+.aria-widget {
+  position: fixed;
+  bottom: 92px;
+  right: 24px;
+  width: 360px;
+  max-height: 580px;
+  background: var(--aria-bg);
+  border: 1px solid var(--aria-border);
+  border-radius: var(--aria-radius);
+  box-shadow: var(--aria-shadow);
+  display: flex;
+  flex-direction: column;
+  z-index: 9998;
+  overflow: hidden;
+  animation: aria-slide-up 0.25s ease;
+}
+
+@keyframes aria-slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.aria-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--aria-surface);
+  border-bottom: 1px solid var(--aria-border);
+}
+
+.aria-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--aria-accent);
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.aria-header-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.aria-name {
+  color: var(--aria-text);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.aria-status {
+  color: var(--aria-text-muted);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.aria-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4caf50;
+}
+
+.aria-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--aria-text-muted);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.15s;
+}
+
+.aria-close:hover {
+  color: var(--aria-text);
+}
+
+/* ── Messages ────────────────────────────────────────────── */
+.aria-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--aria-border) transparent;
+}
+
+.aria-messages::-webkit-scrollbar {
+  width: 4px;
+}
+.aria-messages::-webkit-scrollbar-thumb {
+  background: var(--aria-border);
+  border-radius: 2px;
+}
+
+.aria-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.aria-bubble--user {
+  align-self: flex-end;
+  background: var(--aria-bubble-user);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.aria-bubble--assistant {
+  align-self: flex-start;
+  background: var(--aria-bubble-ai);
+  color: var(--aria-text);
+  border-bottom-left-radius: 4px;
+}
+
+/* ── Typing indicator ────────────────────────────────────── */
+.aria-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+}
+
+.aria-typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--aria-text-muted);
+  animation: aria-bounce 1.2s infinite ease-in-out;
+}
+
+.aria-typing span:nth-child(1) { animation-delay: 0s; }
+.aria-typing span:nth-child(2) { animation-delay: 0.2s; }
+.aria-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes aria-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30%            { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ── Lead capture form ───────────────────────────────────── */
+.aria-lead-form {
+  background: var(--aria-surface);
+  border: 1px solid var(--aria-border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aria-lead-form__label {
+  color: var(--aria-text-muted);
+  font-size: 13px;
+  margin: 0 0 4px;
+}
+
+.aria-lead-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Inputs ──────────────────────────────────────────────── */
+.aria-input {
+  background: var(--aria-bg);
+  border: 1px solid var(--aria-border);
+  border-radius: 8px;
+  color: var(--aria-text);
+  font-size: 14px;
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.aria-input::placeholder {
+  color: var(--aria-text-muted);
+}
+
+.aria-input:focus {
+  border-color: var(--aria-accent);
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.aria-btn {
+  background: var(--aria-accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: center;
+}
+
+.aria-btn:hover:not(:disabled) {
+  background: var(--aria-accent-hover);
+}
+
+.aria-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Calendly card ───────────────────────────────────────── */
+.aria-calendly-card {
+  background: linear-gradient(135deg, #0f3460, #1a1a2e);
+  border: 1px solid var(--aria-accent);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.aria-calendly-card__text {
+  color: var(--aria-text);
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.aria-btn--calendly {
+  text-decoration: none;
+  display: block;
+}
+
+/* ── Input row ───────────────────────────────────────────── */
+.aria-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 12px 10px;
+  border-top: 1px solid var(--aria-border);
+  background: var(--aria-surface);
+}
+
+.aria-input--message {
+  flex: 1;
+  min-width: 0;
+}
+
+.aria-send {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--aria-accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.aria-send:hover:not(:disabled) {
+  background: var(--aria-accent-hover);
+}
+
+.aria-send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.aria-footer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--aria-text-muted);
+  padding: 6px 0 10px;
+  background: var(--aria-surface);
+}
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 420px) {
+  .aria-widget {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    bottom: 84px;
+  }
+
+  .aria-launcher {
+    right: 16px;
+    bottom: 16px;
+  }
+}
